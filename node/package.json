@@ -1,0 +1,17 @@
+{
+  "name": "@platform/kiwi-iam",
+  "private": true,
+  "scripts": {
+    "build": "rm -rf dist && tsc"
+  },
+  "dependencies": {
+    "graphql": "^14.2.1",
+    "graphql-tools": "^4.0.4",
+    "node-fetch": "^2.5.0",
+    "typescript": "^3.4.5"
+  },
+  "devDependencies": {
+    "@types/graphql": "^14.2.0",
+    "@types/node-fetch": "^2.3.3"
+  }
+}
