@@ -1,8 +1,10 @@
 {
   "name": "@platform/kiwi-iam",
   "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rm -rf dist && tsc"
+    "build": "rm -rf dist && tsc --declaration"
   },
   "dependencies": {
     "graphql": "^14.2.1",
