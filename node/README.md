@@ -51,3 +51,37 @@ const schema = makeExecutableSchema({
   },
 });
 ```
+
+### GraphQL-JS
+
+**NOTE: do not forget to `await` for `isUserAuthorized`, otherwise it will
+always evaluate to true** (being async it returns a Promise, and objects in JS
+evaluate to true).
+
+```js
+import { isUserAuthorized } from "@platform/kiwi-iam";
+
+const serviceUserAgent = "Overseer/f7a1295 (Kiwi.com sandbox)";
+
+export default new GraphQLObject({
+  name: "Booking",
+  fields: {
+    paymentCard: {
+      // This field is available only to users with 'payment-card:read' role.
+      type: PaymentCard,
+      resolve: async ({ paymentCard }, args, { email }) => {
+        if (
+          !(await isUserAuthorized(
+            serviceUserAgent,
+            email,
+            "payment-card:read",
+          ))
+        ) {
+          throw Error("Unauthorized");
+        }
+        return paymentCard;
+      },
+    },
+  },
+});
+```
