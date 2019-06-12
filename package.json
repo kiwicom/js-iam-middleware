@@ -1,9 +1,6 @@
 {
   "version": "0.0.2",
-  "name": "@platform/kiwi-iam",
-  "publishConfig": {
-    "registry": "https://verdaccio.platform-sandbox.skypicker.com"
-  },
+  "name": "@kiwicom/iam",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
