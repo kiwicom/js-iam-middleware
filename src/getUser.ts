@@ -16,7 +16,7 @@ export async function getUser(serviceUA: string, email: string): Promise<User> {
   }
 
   const iamURL = env("KIWI_IAM_URL").replace(/\/$/, "");
-  const url = `${iamURL}/v1/user?email=${email}`;
+  const url = `${iamURL}/v1/user?permissions=true&email=${email}`;
 
   const response = await fetch(url, {
     headers: {
