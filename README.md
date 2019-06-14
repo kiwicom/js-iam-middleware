@@ -24,7 +24,7 @@ KIWI_IAM_TOKEN=
 **schema.graphql**
 
 ```graphql
-# import * from '@platform/kiwi-iam/src/AuthorizationDirective.graphql'
+# import * from '@kiwicom/iam/src/AuthorizationDirective.graphql'
 
 type Query {
   paymentCard: String @auth(role: "payment-card:read")
@@ -38,7 +38,7 @@ type Mutation{
 **server.js**
 
 ```js
-import { authorizationDirective } from "@platform/kiwi-iam";
+import { authorizationDirective } from "@kiwicom/iam";
 
 const schema = makeExecutableSchema({
   typeDefs,
@@ -59,7 +59,7 @@ always evaluate to true** (being async it returns a Promise, and objects in JS
 evaluate to true).
 
 ```js
-import { isUserAuthorized } from "@platform/kiwi-iam";
+import { isUserAuthorized } from "@kiwicom/iam";
 
 const serviceUserAgent = "Overseer/f7a1295 (Kiwi.com sandbox)";
 
