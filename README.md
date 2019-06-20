@@ -24,7 +24,7 @@ KIWI_IAM_TOKEN=
 **schema.graphql**
 
 ```graphql
-# import * from '@kiwicom/iam/src/AuthorizationDirective.graphql'
+# import * from '@kiwicom/iam/AuthorizationDirective.graphql'
 
 type Query {
   paymentCard: String @auth(role: "payment-card:read")
