@@ -1,11 +1,12 @@
 {
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.4",
   "name": "@kiwicom/iam",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rm -rf dist && tsc --declaration"
+    "build": "rm -rf dist && tsc --declaration",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "graphql": "^14.2.1",
