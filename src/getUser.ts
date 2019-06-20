@@ -1,26 +1,22 @@
 import fetch from "node-fetch";
 import { User, userCache } from "./userCache";
 
-function env(name: string): string {
-  const val = process.env[name];
-  if (!val) {
-    throw Error(`Environment variable '${name}' is not defined.`);
-  }
-  return val;
-}
-
-export async function getUser(serviceUA: string, email: string): Promise<User> {
+export async function getUser(
+  serviceUA: string,
+  email: string,
+  iamURL: string,
+  iamToken: string,
+): Promise<User> {
   const cachedUser = userCache.get(email);
   if (cachedUser) {
     return cachedUser;
   }
 
-  const iamURL = env("KIWI_IAM_URL").replace(/\/$/, "");
-  const url = `${iamURL}/v1/user?permissions=true&email=${email}`;
-
+  const cleanURL = iamURL.replace(/\/$/, "");
+  const url = `${cleanURL}/v1/user?permissions=true&email=${email}`;
   const response = await fetch(url, {
     headers: {
-      Authorization: env("KIWI_IAM_TOKEN"),
+      Authorization: iamToken,
       "User-Agent": serviceUA,
     },
   });

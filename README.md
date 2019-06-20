@@ -4,14 +4,6 @@
 
 ### Requirements
 
-- **env**: the following environment variables need to be set.
-
-```shell
-# Used to connect to Kiwi IAM
-KIWI_IAM_URL=
-KIWI_IAM_TOKEN=
-```
-
 - **email**: if using directives the user email should be set in context, if
   using GraphQL-JS it should be passed to `isUserAuthorized`.
 
@@ -47,6 +39,8 @@ const schema = makeExecutableSchema({
     auth: authorizationDirective({
       serviceUserAgent: "Overseer/f7a1295 (Kiwi.com sandbox)",
       emailPath: "userEmail", // path for getting user email in context, default is 'email'
+      iamURL: process.env.KIWI_IAM_URL,
+      iamToken: process.env.KIWI_IAM_TOKEN,
     }),
   },
 });
@@ -75,6 +69,8 @@ export default new GraphQLObject({
             serviceUserAgent,
             email,
             "payment-card:read",
+            process.env.KIWI_IAM_URL,
+            process.env.KIWI_IAM_TOKEN,
           ))
         ) {
           throw Error("Unauthorized");

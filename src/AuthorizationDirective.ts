@@ -11,14 +11,18 @@ export async function isUserAuthorized(
   serviceUA: string,
   email: string,
   role: string,
+  iamURL: string,
+  iamToken: string,
 ): Promise<boolean> {
-  const user = await getUser(serviceUA, email);
+  const user = await getUser(serviceUA, email, iamURL, iamToken);
   return user.permissions && user.permissions.includes(role);
 }
 
 export class AuthorizationDirective extends SchemaDirectiveVisitor {
   static serviceUA: string;
   static emailPath: string;
+  static iamURL: string;
+  static iamToken: string;
 
   visitFieldDefinition(
     field: GraphQLField<any, any, { [key: string]: any }>,
@@ -45,6 +49,8 @@ export class AuthorizationDirective extends SchemaDirectiveVisitor {
           AuthorizationDirective.serviceUA,
           email,
           this.args.role,
+          AuthorizationDirective.iamURL,
+          AuthorizationDirective.iamToken,
         ))
       ) {
         throw Error(`Token unauthorized for ${this.args.role}`);
