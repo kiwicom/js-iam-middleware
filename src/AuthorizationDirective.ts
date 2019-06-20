@@ -63,6 +63,8 @@ export class AuthorizationDirective extends SchemaDirectiveVisitor {
 type Options = {
   serviceUserAgent: string;
   emailPath?: string;
+  iamURL: string;
+  iamToken: string;
 };
 
 export function authorizationDirective(options: Options) {
@@ -71,8 +73,15 @@ export function authorizationDirective(options: Options) {
       "serviceUserAgent must be specified to create the authorization directive",
     );
   }
+  if (!options.iamURL || !options.iamToken) {
+    throw Error(
+      "IAM URL and token must be specified to create the authorization directive",
+    );
+  }
   AuthorizationDirective.serviceUA = options.serviceUserAgent;
   AuthorizationDirective.emailPath = options.emailPath || "email";
+  AuthorizationDirective.iamURL = options.iamURL;
+  AuthorizationDirective.iamToken = options.iamToken;
 
   return AuthorizationDirective;
 }
