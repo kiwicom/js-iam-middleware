@@ -10,12 +10,12 @@ import { getUser } from "./getUser";
 export async function isUserAuthorized(
   serviceUA: string,
   email: string,
-  role: string,
+  permission: string,
   iamURL: string,
   iamToken: string,
 ): Promise<boolean> {
   const user = await getUser(serviceUA, email, iamURL, iamToken);
-  return user.permissions && user.permissions.includes(role);
+  return user.permissions && user.permissions.includes(permission);
 }
 
 export class AuthorizationDirective extends SchemaDirectiveVisitor {
@@ -48,12 +48,12 @@ export class AuthorizationDirective extends SchemaDirectiveVisitor {
         !(await isUserAuthorized(
           AuthorizationDirective.serviceUA,
           email,
-          this.args.role,
+          this.args.permission,
           AuthorizationDirective.iamURL,
           AuthorizationDirective.iamToken,
         ))
       ) {
-        throw Error(`Token unauthorized for ${this.args.role}`);
+        throw Error(`Token unauthorized for ${this.args.permission}`);
       }
       return resolve(source, args, context, info);
     };

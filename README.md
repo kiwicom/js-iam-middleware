@@ -19,11 +19,11 @@
 # import * from '@kiwicom/iam/AuthorizationDirective.graphql'
 
 type Query {
-  paymentCard: String @auth(role: "payment-card:read")
+  paymentCard: String @requires(permission: "payment-card.read")
 }
 
 type Mutation{
-  updatePaymentCard(input: PaymentCardInfo!) @auth(role: "payment-card:write")
+  updatePaymentCard(input: PaymentCardInfo!) @requires(permission: "payment-card.write")
 }
 ```
 
@@ -36,7 +36,7 @@ const schema = makeExecutableSchema({
   typeDefs,
   resolvers,
   schemaDirectives: {
-    auth: authorizationDirective({
+    requires: authorizationDirective({
       serviceUserAgent: "Overseer/f7a1295 (Kiwi.com sandbox)",
       emailPath: "userEmail", // path for getting user email in context, default is 'email'
       iamURL: process.env.KIWI_IAM_URL,
@@ -61,7 +61,7 @@ export default new GraphQLObject({
   name: "Booking",
   fields: {
     paymentCard: {
-      // This field is available only to users with 'payment-card:read' role.
+      // This field is available only to users with 'payment-card:read' permissions.
       type: PaymentCard,
       resolve: async ({ paymentCard }, args, { email }) => {
         if (
