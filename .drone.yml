@@ -1,0 +1,18 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: fetch
+    image: docker:git
+    commands:
+      - git fetch --tags
+
+  - name: install
+    image: node:8.10-alpine
+    commands:
+      - yarn
+
+  - name: test
+    image: node:8.10-alpine
+    commands:
+      - yarn test-ci
