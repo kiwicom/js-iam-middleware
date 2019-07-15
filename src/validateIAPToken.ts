@@ -29,7 +29,7 @@ export async function validate(
   iapToken: string,
   expectedAudience: string,
   fetcher: Function = fetch,
-) {
+): Promise<string | { [key: string]: any }> {
   const decoded = jwt.decode(iapToken, { complete: true });
 
   if (
