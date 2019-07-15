@@ -79,7 +79,7 @@ export function authorizationDirective(options: Options) {
     );
   }
   AuthorizationDirective.serviceUA = options.serviceUserAgent;
-  AuthorizationDirective.emailPath = options.emailPath || "email";
+  AuthorizationDirective.emailPath = options.emailPath || "iapEmail";
   AuthorizationDirective.iamURL = options.iamURL;
   AuthorizationDirective.iamToken = options.iamToken;
 

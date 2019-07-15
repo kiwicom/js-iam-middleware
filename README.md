@@ -2,6 +2,40 @@
 
 ## Usage
 
+### Authentication
+
+For authentication through IAP you can use the GraphQL middleware as in the
+example below.
+
+```js
+import { applyMiddleware } from "graphql-middleware";
+import { makeExecutableSchema } from "graphql-tools";
+import { authenticationMiddleware } from "@kiwicom/iam";
+
+const options = {
+  iapProjectNumber: process.env.IAP_PROJECT_NUMBER,
+  iapServiceID: process.env.IAP_SERVICE_ID,
+
+  // Path to IAP token on context (default is `iapToken`).
+  tokenPath: "token",
+  // Set user email to context after validation (default is false).
+  setUserEmail: true,
+
+  // Set user data from IAM to context after validation, the attributes below
+  // are mandatory if `setUserData` is true (default is false).
+  setUserData: true,
+  iamURL: process.env.IAM_URL,
+  iamToken: process.env.IAM_TOKEN,
+  serviceUserAgent: "Service/version (Kiwi.com environment)";
+};
+
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+const schemaWithMiddleware = applyMiddleware(
+  schema,
+  authenticationMiddleware(options),
+);
+```
+
 ### Requirements
 
 - **email**: if using directives the user email should be set in context, if
@@ -38,7 +72,7 @@ const schema = makeExecutableSchema({
   schemaDirectives: {
     requires: authorizationDirective({
       serviceUserAgent: "Overseer/f7a1295 (Kiwi.com sandbox)",
-      emailPath: "userEmail", // path for getting user email in context, default is 'email'
+      emailPath: "userEmail", // path for getting user email in context, default is 'iapEmail'
       iamURL: process.env.KIWI_IAM_URL,
       iamToken: process.env.KIWI_IAM_TOKEN,
     }),
