@@ -6,6 +6,7 @@ export async function getUser(
   email: string,
   iamURL: string,
   iamToken: string,
+  fetcher: Function = fetch,
 ): Promise<User> {
   const cachedUser = userCache.get(email);
   if (cachedUser) {
@@ -14,7 +15,7 @@ export async function getUser(
 
   const cleanURL = iamURL.replace(/\/$/, "");
   const url = `${cleanURL}/v1/user?permissions=true&email=${email}`;
-  const response = await fetch(url, {
+  const response = await fetcher(url, {
     headers: {
       Authorization: iamToken,
       "User-Agent": serviceUA,
