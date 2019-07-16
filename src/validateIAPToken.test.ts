@@ -12,7 +12,7 @@ EyKQwUUtMCEn0aJBY6PA+Eic24+WqPEtDKG95elao4VxA+Fne36Sgw1tkg==
 `,
 };
 
-test("getPubKey fetches key correctly", async t => {
+test("getPubKey fetches key correctly", async (t) => {
   t.deepEqual(cachedKeys, {}, "No keys are cached");
 
   const pubKey = await getPubKey("test1", mockFetch(mockPubKeys));
@@ -24,7 +24,7 @@ test("getPubKey fetches key correctly", async t => {
   t.is(pubKey2, "test1 pubkey");
 });
 
-test("getPubKey fails on missing key", async t => {
+test("getPubKey fails on missing key", async (t) => {
   t.deepEqual(cachedKeys, {}, "No keys are cached");
 
   await t.throwsAsync(() =>
@@ -32,7 +32,7 @@ test("getPubKey fails on missing key", async t => {
   );
 });
 
-test("validate ", async t => {
+test("validate ", async (t) => {
   const testJWT = mockToken({
     iss: "https://cloud.google.com/iap",
     aud: "expected_audience",
@@ -93,7 +93,7 @@ test("validate ", async t => {
     "invalid signature",
   ],
 ].forEach(([testJWT, message]) => {
-  test(`Fails with: ${message}`, async t => {
+  test(`Fails with: ${message}`, async (t) => {
     const err = await t.throwsAsync(() =>
       validate(testJWT, "expected_audience", mockFetch(mockPubKeys)),
     );
