@@ -2,7 +2,7 @@ import test from "ava";
 import { required } from "./authenticationMiddleware";
 
 test("required returns correct values", (t) => {
-  const tests: [any, string][] = [
+  const tests: Array<[any, string]> = [
     [{ i: "exist" }, "object"],
     [42, "number"],
     [0, "falsy number"],

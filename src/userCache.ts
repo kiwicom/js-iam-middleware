@@ -1,5 +1,5 @@
 // https://gitlab.skypicker.com/platform/security/iam/blob/master/swagger.yml#L35
-export type User = {
+export interface User {
   employeeNumber: string;
   firstName: string;
   lastName: string;
@@ -11,19 +11,19 @@ export type User = {
   teamMembership: string[];
   manager: string;
   permissions: string[];
-};
+}
 
-type Cache = {
+interface Cache {
   [email: string]: {
     expiration: number;
     user: User;
   };
-};
+}
 
 class UserCache {
   cache: Cache = {};
 
-  set(user: User, lifespan: number) {
+  set(user: User, lifespan: number): void {
     this.cache[user.email] = {
       expiration: Date.now() + lifespan * 1000,
       user,
@@ -44,7 +44,7 @@ class UserCache {
     return entry.user;
   }
 
-  del(email: string) {
+  del(email: string): void {
     delete this.cache[email];
   }
 }

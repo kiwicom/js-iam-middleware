@@ -1,7 +1,7 @@
 import { Response } from "node-fetch";
 import { sign } from "jsonwebtoken";
 
-export const mockFetch = (response: any) => async () =>
+export const mockFetch = (response: any) => async (): Promise<Response> =>
   new Response(JSON.stringify(response));
 
 export const keyPair = {
