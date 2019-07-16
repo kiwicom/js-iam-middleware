@@ -60,14 +60,16 @@ export class AuthorizationDirective extends SchemaDirectiveVisitor {
   }
 }
 
-type Options = {
+interface Options {
   serviceUserAgent: string;
   emailPath?: string;
   iamURL: string;
   iamToken: string;
-};
+}
 
-export function authorizationDirective(options: Options) {
+export function authorizationDirective(
+  options: Options,
+): SchemaDirectiveVisitor {
   if (!options.serviceUserAgent) {
     throw Error(
       "serviceUserAgent must be specified to create the authorization directive",
@@ -83,5 +85,11 @@ export function authorizationDirective(options: Options) {
   AuthorizationDirective.iamURL = options.iamURL;
   AuthorizationDirective.iamToken = options.iamToken;
 
+  // Ignored because TS complains about AuthorizationDirective not being of
+  // type SchemaDirectiveVisitor, even though it extends the needed type. This
+  // function needs to return the SchemaDirectiveVisitor type, so that the
+  // clients using this library won't have to also use ts-ignore when adding
+  // the directive to their schemas.
+  // @ts-ignore
   return AuthorizationDirective;
 }

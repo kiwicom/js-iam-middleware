@@ -1,7 +1,7 @@
 import { validate } from "./validateIAPToken";
 import { getUser } from "./getUser";
 
-type Options = {
+interface Options {
   iapProjectNumber?: string;
   iapServiceID?: string;
 
@@ -12,7 +12,7 @@ type Options = {
   iamURL?: string;
   iamToken?: string;
   setUserData?: boolean;
-};
+}
 
 export function required<T>(value: T | undefined | null, fieldName: string): T {
   if (value === undefined || value === null) {
