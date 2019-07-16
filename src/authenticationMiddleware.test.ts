@@ -1,7 +1,7 @@
 import test from "ava";
 import { required } from "./authenticationMiddleware";
 
-test("required returns correct values", t => {
+test("required returns correct values", (t) => {
   const tests: [any, string][] = [
     [{ i: "exist" }, "object"],
     [42, "number"],
@@ -17,7 +17,7 @@ test("required returns correct values", t => {
   });
 });
 
-test("required throws on null or undefined", t => {
+test("required throws on null or undefined", (t) => {
   const err = t.throws(() => required(undefined, "notExisting"));
   t.is(err.message, "Missing 'notExisting', option must be specified.");
 

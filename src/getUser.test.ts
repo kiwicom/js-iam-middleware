@@ -2,7 +2,7 @@ import test from "ava";
 import { Response } from "node-fetch";
 import { getUser } from "./getUser";
 
-test("getUser caches results", async t => {
+test("getUser caches results", async (t) => {
   let nRequests = 0;
   const mockFetch = (response: any) => async () => {
     nRequests += 1;
