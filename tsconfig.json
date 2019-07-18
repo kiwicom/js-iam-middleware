@@ -12,6 +12,7 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "baseUrl": ".",
+    "typeRoots": ["./node_modules/@types", "./src/@types"],
     "outDir": "dist",
     "strict": true
   },
