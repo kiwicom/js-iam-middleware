@@ -1,5 +1,5 @@
 import { GetString } from "mamushi";
-import opn from "opn";
+import open from "open";
 import fetch from "node-fetch";
 import { getRefreshToken } from "./getRefreshToken";
 import { handleUserInput } from "./inputHandler";
@@ -11,7 +11,7 @@ async function start(): Promise<void> {
     iapClientId: GetString("IAP_CLIENT_ID"),
   };
   const refreshToken = await getRefreshToken(
-    opn,
+    open,
     handleUserInput,
     fetch,
     options,
