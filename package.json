@@ -21,7 +21,7 @@
     "graphql-tools": "^4.0.4",
     "jsonwebtoken": "^8.5.1",
     "mamushi": "^1.1.5",
-    "node-fetch": "^2.5.0",
+    "node-fetch": "^2.6.0",
     "opn": "^6.0.0",
     "typescript": "^3.4.5"
   },
