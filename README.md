@@ -2,6 +2,11 @@
 
 ## Usage
 
+1. [Authentication](#authentication)
+2. [SDL first](<#sdl-first-approach-(directives)>)
+3. [GraphQLJS](#GraphQL-JS)
+4. [IAP token generation](#IAP-token-generation)
+
 ### Authentication
 
 For authentication through IAP you can use the GraphQL middleware as in the
@@ -115,3 +120,32 @@ export default new GraphQLObject({
   },
 });
 ```
+
+### IAP token generation
+
+For local development it is useful to be able to gnerate a refresh_token. This library supplies a script for doing this.
+
+#### Pre-requisites
+
+- Client id and client secret from desktop IAP application <https://cloud.google.com/iap/docs/authentication-howto>
+
+#### Usage:
+
+**Fill the following environment variables:**
+
+```
+CLIENT_ID - Client ID of the desktop application created in IAP
+CLIENT_SECRET - Client secret of the desktop application created in IAP
+```
+
+`package.json`
+
+```json
+{
+  "scripts": {
+    "generate:token": "node ./node_modules/@kiwicom/js-iap-middleware/dist/scripts"
+  }
+}
+```
+
+Now run `generate:token` a browser will open and the CLI will ask you to input the token you get from the browser. After that you will be provided with a `refresh_token` that has long validity and can be used for local development.
