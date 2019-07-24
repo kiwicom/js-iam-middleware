@@ -16,3 +16,14 @@ steps:
     image: node:8.10-alpine
     commands:
       - yarn test-ci
+
+  - name: npm
+    image: plugins/npm
+    settings:
+      username: fallion
+      password:
+        from_secret: npm_token
+      email: simon@fallion.net
+    when:
+      event: push
+      branch: master
