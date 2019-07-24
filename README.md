@@ -123,7 +123,7 @@ export default new GraphQLObject({
 
 ### IAP token generation
 
-For local development it is useful to be able to gnerate a refresh_token. This library supplies a script for doing this.
+For local development it is useful to be able to generate a refresh_token. This library supplies a script for doing this.
 
 #### Pre-requisites
 
