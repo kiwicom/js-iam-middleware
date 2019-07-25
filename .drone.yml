@@ -21,7 +21,7 @@ steps:
     image: plugins/npm
     settings:
       username: fallion
-      password:
+      token:
         from_secret: npm_token
       email: simon@fallion.net
     when:
