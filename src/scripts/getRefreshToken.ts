@@ -1,20 +1,8 @@
 import fetch from "node-fetch";
+import { DesktopIAPOptions } from "../types";
 
 export function openBrowser(browser: (url: string) => void, url: string): void {
   browser(url);
-}
-
-/*
- * All of the options below are described in https://cloud.google.com/iap/docs/authentication-howto
- * Please prepare a Other type client id and secret as described in the above link in "Authenticating from a desktop app" section
- */
-interface DesktopIAPOptions {
-  // other type client id
-  clientId: string;
-  // other type client secret
-  clientSecret: string;
-  // global IAP client ID
-  iapClientId: string;
 }
 
 export async function getRefreshToken(
