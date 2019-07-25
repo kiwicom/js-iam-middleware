@@ -25,7 +25,7 @@ test("getClientToken", async (t) => {
   const clientToken = await getClientToken(
     mockFetch,
     mockIAPOptions,
-    "testrefrshtoken",
+    "testrefreshtoken",
   );
 
   t.is(nFetchCalls, 1);
