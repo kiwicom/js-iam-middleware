@@ -1,5 +1,6 @@
 {
   "private": false,
+  "version-disclaimer": "This repo is managed by semantic-release please check tags for current versions",
   "version": "0.2.0",
   "name": "@kiwicom/iam",
   "repository": "kiwicom/js-iam-middleware",
@@ -13,7 +14,8 @@
     "lint": "eslint . --ext ts",
     "test-ci": "npm run test && npm run lint && tsc --noEmit",
     "build": "rm -rf dist && tsc --declaration",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "release": "semantic-release"
   },
   "dependencies": {
     "@types/jsonwebtoken": "^8.3.2",
@@ -26,6 +28,9 @@
     "typescript": "^3.5.3"
   },
   "devDependencies": {
+    "@semantic-release/commit-analyzer": "^6.2.0",
+    "@semantic-release/github": "^5.4.2",
+    "@semantic-release/npm": "^5.1.13",
     "@types/graphql": "^14.2.3",
     "@types/node-fetch": "^2.5.0",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
@@ -34,6 +39,7 @@
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.0.0",
     "nyc": "^14.1.1",
+    "semantic-release": "^15.13.18",
     "ts-node": "^8.3.0"
   },
   "ava": {
