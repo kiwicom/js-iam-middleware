@@ -143,7 +143,7 @@ CLIENT_SECRET - Client secret of the desktop application created in IAP
 ```json
 {
   "scripts": {
-    "generate:token": "node ./node_modules/@kiwicom/js-iap-middleware/dist/scripts"
+    "generate:token": "node ./node_modules/@kiwicom/iam/dist/scripts"
   }
 }
 ```
