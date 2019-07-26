@@ -1,3 +1,5 @@
+#!/bin/env node
+
 import { GetString } from "mamushi";
 import open from "open";
 import fetch from "node-fetch";
