@@ -3,9 +3,9 @@ import { DesktopIAPOptions } from "./types";
 const oauthTokenBaseUrl = "https://www.googleapis.com/oauth2/v4/token";
 
 export async function getClientToken(
-  fetcher: Function = fetch,
   options: DesktopIAPOptions,
   refreshToken: string,
+  fetcher: Function = fetch,
 ): Promise<string> {
   const body = {
     // eslint-disable-next-line @typescript-eslint/camelcase
