@@ -1,5 +1,7 @@
 # Kiwi IAM
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ## Usage
 
 1. [Authentication](#authentication)
@@ -149,3 +151,7 @@ CLIENT_SECRET - Client secret of the desktop application created in IAP
 ```
 
 Now run `generate:token` a browser will open and the CLI will ask you to input the token you get from the browser. After that you will be provided with a `refresh_token` that has long validity and can be used for local development.
+
+# License
+
+The code in this project is licensed under MIT license. By contributing to js-iam-middleware, you agree that your contributions will be licensed under its MIT license.
