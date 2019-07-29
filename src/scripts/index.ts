@@ -1,4 +1,4 @@
-#!/bin/env node
+#!/usr/bin/env node
 
 import { GetString } from "mamushi";
 import open from "open";
