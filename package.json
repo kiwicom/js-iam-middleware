@@ -4,6 +4,7 @@
   "version": "0.2.0",
   "name": "@kiwicom/iam",
   "repository": "kiwicom/js-iam-middleware",
+  "license": "MIT",
   "bin": {
     "generate-iap-token": "./dist/scripts/index.js"
   },
