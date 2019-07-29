@@ -152,6 +152,10 @@ CLIENT_SECRET - Client secret of the desktop application created in IAP
 
 Now run `generate:token` a browser will open and the CLI will ask you to input the token you get from the browser. After that you will be provided with a `refresh_token` that has long validity and can be used for local development.
 
+# Contributing
+
+We are always looking for people to contribute! Please check https://github.com/kiwicom/js-iam-middleware/blob/master/CONTRIBUTING.md for the guidelines.
+
 # License
 
 The code in this project is licensed under MIT license. By contributing to js-iam-middleware, you agree that your contributions will be licensed under its MIT license.
