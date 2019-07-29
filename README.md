@@ -158,4 +158,4 @@ We are always looking for people to contribute! Please check https://github.com/
 
 # License
 
-The code in this project is licensed under MIT license. By contributing to js-iam-middleware, you agree that your contributions will be licensed under its MIT license.
+The code in this project is licensed under [MIT license](https://github.com/kiwicom/js-iam-middleware/blob/master/LICENSE). By contributing to js-iam-middleware, you agree that your contributions will be licensed under its MIT license.
