@@ -2,14 +2,26 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+This library is meant to be used together with [kiwicom/iam](https://github.com/kiwicom/iam)
+for user authorization, and [IAP](https://cloud.google.com/iap/) for
+authentication.
+
+Permissions are defined as Okta groups. IAM parses (and caches) these groups,
+and returns the relevant permissions for each user, based on the the service
+requesting the data.
+
 ## Usage
 
 1. [Authentication](#authentication)
-2. [SDL first](<#sdl-first-approach-(directives)>)
-3. [GraphQLJS](#GraphQL-JS)
-4. [IAP token generation](#IAP-token-generation)
+2. [Authorization](#authorization)
+   - [Requirements](#requirements)
+   - [SDL first](<#sdl-first-approach-(directives)>)
+   - [GraphQLJS](#GraphQL-JS)
+3. [IAP token generation](#IAP-token-generation)
+   - [Pre-requisites](#pre-requisites)
+   - [Usage](#usage)
 
-### Authentication
+## Authentication
 
 For authentication through IAP you can use the GraphQL middleware as in the
 example below.
@@ -20,6 +32,8 @@ import { makeExecutableSchema } from "graphql-tools";
 import { authenticationMiddleware } from "@kiwicom/iam";
 
 const options = {
+  // These two fields are mandatory and are used to check what service
+  // is the token intended for (audience).
   iapProjectNumber: process.env.IAP_PROJECT_NUMBER,
   iapServiceID: process.env.IAP_SERVICE_ID,
 
@@ -43,14 +57,17 @@ const schemaWithMiddleware = applyMiddleware(
 );
 ```
 
+## Authorization
+
 ### Requirements
 
+- You will need a service token for Kiwi IAM.
+- Your user agent should be in the format `service/version (organization environment)` (eg. `my-secure-app/2c1e28a (Kiwi.com sandbox)`).
 - **email**: if using directives the user email should be set in context, if
   using GraphQL-JS it should be passed to `isUserAuthorized`.
 
-  This value is used to determine which user is trying to access a certain
-  object/field. **It is recommended to extract the email from the authentication
-  token, and use it only if the token is authenticated.**
+  Either way, **it is recommended to use the authentication part of this library
+  to set the email in context**, or to extract it from the token after it's verified.
 
 ### SDL first approach (directives)
 
@@ -123,15 +140,15 @@ export default new GraphQLObject({
 });
 ```
 
-### IAP token generation
+## IAP token generation
 
 For local development it is useful to be able to generate a refresh_token. This library supplies a script for doing this.
 
-#### Pre-requisites
+### Pre-requisites
 
 - Client id and client secret from desktop IAP application <https://cloud.google.com/iap/docs/authentication-howto>
 
-#### Usage:
+### Usage
 
 **Fill the following environment variables:**
 
