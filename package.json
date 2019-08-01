@@ -22,20 +22,19 @@
     "release": "semantic-release"
   },
   "dependencies": {
-    "@types/jsonwebtoken": "^8.3.2",
     "graphql": "^14.4.2",
     "graphql-tools": "^4.0.5",
     "jsonwebtoken": "^8.5.1",
     "mamushi": "^1.1.5",
     "node-fetch": "^2.6.0",
-    "open": "^6.4.0",
-    "typescript": "^3.5.3"
+    "open": "^6.4.0"
   },
   "devDependencies": {
     "@semantic-release/commit-analyzer": "^6.2.0",
     "@semantic-release/github": "^5.4.2",
     "@semantic-release/npm": "^5.1.13",
     "@types/graphql": "^14.2.3",
+    "@types/jsonwebtoken": "^8.3.2",
     "@types/node-fetch": "^2.5.0",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
@@ -44,7 +43,8 @@
     "eslint-config-prettier": "^6.0.0",
     "nyc": "^14.1.1",
     "semantic-release": "^15.13.19",
-    "ts-node": "^8.3.0"
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3"
   },
   "ava": {
     "compileEnhancements": false,
