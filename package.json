@@ -9,7 +9,8 @@
     "generate-iap-token": "./dist/scripts/index.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "AuthorizationDirective.graphql"
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
