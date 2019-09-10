@@ -15,7 +15,7 @@ steps:
   - name: test
     image: node:8.16-alpine
     commands:
-      - yarn test-ci
+      - yarn ci
 
   - name: release
     image: node:8.16
