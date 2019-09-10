@@ -140,21 +140,21 @@ export default new GraphQLObject({
 });
 ```
 
-## IAP token generation
+## IAP token generation for programmatic authentication 
 
 For local development it is useful to be able to generate a refresh_token. This library supplies a script for doing this.
 
 ### Pre-requisites
 
-- Client id and client secret from desktop IAP application <https://cloud.google.com/iap/docs/authentication-howto>
+- OAuth client ID credentials ("Client ID" and "Client secret") for authenticating from a desktop app: <https://cloud.google.com/iap/docs/authentication-howto#authenticating_from_a_desktop_app>
 
 ### Usage
 
 **Fill the following environment variables:**
 
 ```
-CLIENT_ID - Client ID of the desktop application created in IAP
-CLIENT_SECRET - Client secret of the desktop application created in IAP
+CLIENT_ID - OAuth Client ID for authenticating from a desktop app
+CLIENT_SECRET - OAuth Client secret for authenticating from a desktop app
 ```
 
 `package.json`
@@ -167,7 +167,7 @@ CLIENT_SECRET - Client secret of the desktop application created in IAP
 }
 ```
 
-Now run `generate:token` a browser will open and the CLI will ask you to input the token you get from the browser. After that you will be provided with a `refresh_token` that has long validity and can be used for local development.
+Now run `generate:token` a browser will open displaying an authorization code (starting with `4/`) and the CLI will ask you to input the authorization code. After that you will be provided with a `refresh_token` (starting with `1/`) that has long validity and can be used for local development.
 
 # Contributing
 
