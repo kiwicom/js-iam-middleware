@@ -28,7 +28,7 @@
     "jsonwebtoken": "^8.5.1",
     "mamushi": "^1.1.5",
     "node-fetch": "^2.6.0",
-    "open": "^6.4.0"
+    "open": "^7.0.0"
   },
   "devDependencies": {
     "@semantic-release/commit-analyzer": "6.3.0",
