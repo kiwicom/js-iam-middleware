@@ -4120,10 +4120,10 @@ make-fetch-happen@^5.0.0:
     socks-proxy-agent "^4.0.0"
     ssri "^6.0.0"
 
-mamushi@^1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/mamushi/-/mamushi-1.1.5.tgz#dcb84ac3deb715e27a8ed1790976748266e7831b"
-  integrity sha512-22ye6urdgnq5M1vodoeYMlfyEY5Mb+aGRLezhAo6WlJU+X321ohXAjWWoyzq+bZ9GZnYMA5nGxx/3GixET52zg==
+mamushi@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/mamushi/-/mamushi-2.0.0.tgz#ede9b5c9138d8fe28bf0496e7c6f6d605b3ea180"
+  integrity sha512-AeX4QyLPbWo52sCo569DeZIfw7B5Gos9iWe8vTQ1HpsmpbvT5Zk3NvAoSkp6tLQRAA3N9/huC8fNW3OXqhb/sQ==
 
 map-age-cleaner@^0.1.1:
   version "0.1.3"
