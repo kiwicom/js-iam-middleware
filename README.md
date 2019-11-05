@@ -23,12 +23,10 @@ requesting the data.
 
 ## Authentication
 
-For authentication through IAP you can use the GraphQL middleware as in the
+For authentication through IAP you can use the `express` middleware as in the
 example below.
 
 ```js
-import { applyMiddleware } from "graphql-middleware";
-import { makeExecutableSchema } from "graphql-tools";
 import { authenticationMiddleware } from "@kiwicom/iam";
 
 const options = {
@@ -36,25 +34,12 @@ const options = {
   // is the token intended for (audience).
   iapProjectNumber: process.env.IAP_PROJECT_NUMBER,
   iapServiceID: process.env.IAP_SERVICE_ID,
-
-  // Path to IAP token on context (default is `iapToken`).
-  tokenPath: "token",
-  // Set user email to context after validation (default is false).
-  setUserEmail: true,
-
-  // Set user data from IAM to context after validation, the attributes below
-  // are mandatory if `setUserData` is true (default is false).
-  setUserData: true,
-  iamURL: process.env.IAM_URL,
-  iamToken: process.env.IAM_TOKEN,
-  serviceUserAgent: "Service/version (Kiwi.com environment)";
 };
 
-const schema = makeExecutableSchema({ typeDefs, resolvers });
-const schemaWithMiddleware = applyMiddleware(
-  schema,
-  authenticationMiddleware(options),
-);
+const app = express();
+// Routes created here will be unauthenticated.
+app.use(authenticationMiddleware(options));
+// Routes created here will be authenticated.
 ```
 
 ## Authorization
@@ -140,7 +125,7 @@ export default new GraphQLObject({
 });
 ```
 
-## IAP token generation for programmatic authentication 
+## IAP token generation for programmatic authentication
 
 For local development it is useful to be able to generate a refresh_token. This library supplies a script for doing this.
 

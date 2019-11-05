@@ -1,17 +1,9 @@
-import { validate } from "./validateIAPToken";
-import { getUser } from "./getUser";
+import { Request, Response, NextFunction } from "express";
+import { validateIAPToken } from "./validateIAPToken";
 
 interface Options {
   iapProjectNumber?: string;
   iapServiceID?: string;
-
-  tokenPath?: string;
-  setUserEmail?: boolean;
-
-  serviceUserAgent?: string;
-  iamURL?: string;
-  iamToken?: string;
-  setUserData?: boolean;
 }
 
 export function required<T>(value: T | undefined | null, fieldName: string): T {
@@ -22,39 +14,25 @@ export function required<T>(value: T | undefined | null, fieldName: string): T {
 }
 
 export const authenticationMiddleware = (opts: Options) => async (
-  resolve: Function,
-  root: any,
-  args: any,
-  context: any,
-  info: any,
+  req: Request,
+  res: Response,
+  next: NextFunction,
 ) => {
   required(opts.iapProjectNumber, "iapProjectNumber");
   required(opts.iapServiceID, "iapServiceID");
-  const expectedAudience = `/projects/${
-    opts.iapProjectNumber
-  }/global/backendServices/${opts.iapServiceID}`;
 
-  const iapToken = context[opts.tokenPath || "iapToken"];
-  if (!iapToken) {
-    throw Error("IAP token is missing from context");
-  }
+  const iapToken = req.get("x-goog-iap-jwt-assertion");
+  const expectedAudience = `/projects/${opts.iapProjectNumber}/global/backendServices/${opts.iapServiceID}`;
 
-  const userData = await validate(iapToken, expectedAudience);
-  if (!userData || typeof userData !== "object") {
-    throw Error("Token payload ");
-  }
+  try {
+    if (!iapToken) {
+      throw Error("IAP token not present");
+    }
 
-  if (opts.setUserEmail) {
-    context.iapEmail = userData.email;
+    await validateIAPToken(iapToken, expectedAudience);
+    next();
+  } catch (err) {
+    console.log("IAP validation failed", err);
+    res.status(403).json({ message: "IAP validation failed", err });
   }
-  if (opts.setUserData) {
-    context.iapUser = await getUser(
-      required(opts.serviceUserAgent, "serviceUserAgent"),
-      userData.email,
-      required(opts.iamURL, "iamURL"),
-      required(opts.iamToken, "iamToken"),
-    );
-  }
-
-  return resolve(root, args, context, info);
 };
