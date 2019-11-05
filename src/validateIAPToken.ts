@@ -25,7 +25,7 @@ export async function getPubKey(
   return key;
 }
 
-export async function validate(
+export async function validateIAPToken(
   iapToken: string,
   expectedAudience: string,
   fetcher: Function = fetch,

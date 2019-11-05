@@ -1,5 +1,5 @@
 import test from "ava";
-import { cachedKeys, getPubKey, validate } from "./validateIAPToken";
+import { cachedKeys, getPubKey, validateIAPToken } from "./validateIAPToken";
 import { mockFetch, mockToken, keyPair } from "./testUtils";
 
 const mockPubKeys = {
@@ -39,7 +39,7 @@ test("validate ", async (t) => {
     email: "test@test.com",
   });
 
-  const payload = await validate(
+  const payload = await validateIAPToken(
     testJWT,
     "expected_audience",
     mockFetch(mockPubKeys),
@@ -95,7 +95,7 @@ test("validate ", async (t) => {
 ].forEach(([testJWT, message]) => {
   test(`Fails with: ${message}`, async (t) => {
     const err = await t.throwsAsync(() =>
-      validate(testJWT, "expected_audience", mockFetch(mockPubKeys)),
+      validateIAPToken(testJWT, "expected_audience", mockFetch(mockPubKeys)),
     );
     t.assert(err.message.includes(message), `[${err}] contains [${message}]`);
   });
