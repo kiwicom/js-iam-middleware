@@ -22,7 +22,7 @@ async function start(): Promise<void> {
   console.log(`
 Refresh token generated. Please save it to your .env file:
 \`\`\`
-IAP_REFRESH_TOKEN: "${refreshToken}"
+IAP_REFRESH_TOKEN=${refreshToken}
 \`\`\`
 `)
 }
