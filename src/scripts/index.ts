@@ -19,9 +19,12 @@ async function start(): Promise<void> {
     options,
   );
 
-  console.log(
-    `Your refresh token is: "${refreshToken}" please save it to your .env file`,
-  );
+  console.log(`
+Refresh token generated. Please save it to your .env file:
+\`\`\`
+IAP_REFRESH_TOKEN: "${refreshToken}"
+\`\`\`
+`)
 }
 
 start();
