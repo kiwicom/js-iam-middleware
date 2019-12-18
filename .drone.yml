@@ -8,17 +8,17 @@ steps:
       - git fetch --tags
 
   - name: install
-    image: node:8.16-alpine
+    image: node:8.17-alpine
     commands:
       - yarn
 
   - name: test
-    image: node:8.16-alpine
+    image: node:8.17-alpine
     commands:
       - yarn ci
 
   - name: release
-    image: node:8.16
+    image: node:8.17
     environment:
       GH_TOKEN:
         from_secret: GH_TOKEN
