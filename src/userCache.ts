@@ -9,6 +9,7 @@ export interface User {
   location: string;
   isVendor: boolean;
   teamMembership: string[];
+  orgStructure: string;
   manager: string;
   permissions: string[];
 }
