@@ -19,6 +19,7 @@ test("getUser caches results", async (t) => {
     location: "",
     isVendor: false,
     teamMembership: [],
+    orgStructure: "",
     manager: "",
     permissions: [],
   };

@@ -30,10 +30,8 @@ example below.
 import { authenticationMiddleware } from "@kiwicom/iam";
 
 const options = {
-  // These two fields are mandatory and are used to check what service
-  // is the token intended for (audience).
-  iapProjectNumber: process.env.IAP_PROJECT_NUMBER,
-  iapServiceID: process.env.IAP_SERVICE_ID,
+  // These correct audience for your project can be found in GCP.
+  audience: process.env.IAP_AUDIENCE,
 };
 
 const app = express();
