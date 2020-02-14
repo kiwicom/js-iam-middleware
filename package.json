@@ -33,9 +33,9 @@
     "open": "^7.0.0"
   },
   "devDependencies": {
-    "@semantic-release/commit-analyzer": "6.3.3",
-    "@semantic-release/github": "5.5.8",
-    "@semantic-release/npm": "5.3.5",
+    "@semantic-release/commit-analyzer": "8.0.1",
+    "@semantic-release/github": "7.0.3",
+    "@semantic-release/npm": "7.0.3",
     "@types/graphql": "14.2.3",
     "@types/jsonwebtoken": "8.3.5",
     "@types/node-fetch": "2.5.4",
@@ -45,7 +45,7 @@
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.9.0",
     "nyc": "15.0.0",
-    "semantic-release": "15.14.0",
+    "semantic-release": "17.0.3",
     "ts-node": "8.6.2",
     "typescript": "3.7.5"
   },
