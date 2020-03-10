@@ -37,7 +37,7 @@
     "@semantic-release/github": "7.0.3",
     "@semantic-release/npm": "7.0.3",
     "@types/graphql": "14.2.3",
-    "@types/jsonwebtoken": "8.3.7",
+    "@types/jsonwebtoken": "8.3.8",
     "@types/node-fetch": "2.5.5",
     "@typescript-eslint/eslint-plugin": "1.13.0",
     "@typescript-eslint/parser": "1.13.0",
