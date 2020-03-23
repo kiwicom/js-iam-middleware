@@ -13,13 +13,15 @@ export async function isUserAuthorized(
   permission: string,
   iamURL: string,
   iamToken: string,
+  servicePermissionsIdentifier: string = "",
 ): Promise<boolean> {
-  const user = await getUser(serviceUA, email, iamURL, iamToken);
+  const user = await getUser(serviceUA, servicePermissionsIdentifier, email, iamURL, iamToken);
   return user.permissions && user.permissions.includes(permission);
 }
 
 export class AuthorizationDirective extends SchemaDirectiveVisitor {
   static serviceUA: string;
+  static servicePermissionsIdentifier: string;
   static emailPath: string;
   static iamURL: string;
   static iamToken: string;
@@ -47,6 +49,7 @@ export class AuthorizationDirective extends SchemaDirectiveVisitor {
       if (
         !(await isUserAuthorized(
           AuthorizationDirective.serviceUA,
+          AuthorizationDirective.servicePermissionsIdentifier,
           email,
           this.args.permission,
           AuthorizationDirective.iamURL,
@@ -65,6 +68,7 @@ interface Options {
   emailPath?: string;
   iamURL: string;
   iamToken: string;
+  servicePermissionsIdentifier?: string;
 }
 
 export function authorizationDirective(
@@ -81,6 +85,7 @@ export function authorizationDirective(
     );
   }
   AuthorizationDirective.serviceUA = options.serviceUserAgent;
+  AuthorizationDirective.servicePermissionsIdentifier = options.servicePermissionsIdentifier || "";
   AuthorizationDirective.emailPath = options.emailPath || "iapEmail";
   AuthorizationDirective.iamURL = options.iamURL;
   AuthorizationDirective.iamToken = options.iamToken;

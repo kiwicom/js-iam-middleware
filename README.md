@@ -30,7 +30,7 @@ example below.
 import { authenticationMiddleware } from "@kiwicom/iam";
 
 const options = {
-  // These correct audience for your project can be found in GCP.
+  // The correct audience for your project can be found in GCP.
   audience: process.env.IAP_AUDIENCE,
 };
 

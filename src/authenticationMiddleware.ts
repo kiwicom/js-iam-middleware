@@ -14,8 +14,13 @@ export function required<T>(value: T | undefined | null, fieldName: string): T {
     throw Error(`Missing '${fieldName}', option must be specified.`);
   }
 
-  console.log(`'${fieldName}' is deprecated and will be removed. Use 'audience' instead.`);
   return value;
+}
+
+export function validateAudience(audience: string | undefined): void {
+  if (!(typeof audience === 'string' && audience.match(audienceRegex))) {
+    throw TypeError(`'audience' needs to be a string matching ${audienceRegex}`);
+  }
 }
 
 export const authenticationMiddleware = (opts: Options) => async (
@@ -23,17 +28,19 @@ export const authenticationMiddleware = (opts: Options) => async (
   res: Response,
   next: NextFunction,
 ) => {
-  if (opts.audience) {
-    if (!(typeof opts.audience === 'string' && opts.audience.match(audienceRegex))) {
-      throw Error(`'audience' needs to be a string matching ${audienceRegex}`);
-    }
-  } else {
+  // Handle deprecated options
+  if (opts.iapProjectNumber && opts.iapServiceID) {
     required(opts.iapProjectNumber, "iapProjectNumber");
     required(opts.iapServiceID, "iapServiceID");
+
+    console.log("'iapProjectNumber' and 'iapServiceID' are deprecated and will be removed. Use 'audience' instead.");
+  }
+  else {
+    validateAudience(required(opts.audience, "audience"));
   }
 
-  const iapToken = req.get("x-goog-iap-jwt-assertion");
   const expectedAudience = opts.audience || `/projects/${opts.iapProjectNumber}/global/backendServices/${opts.iapServiceID}`;
+  const iapToken = req.get("x-goog-iap-jwt-assertion");
 
   try {
     if (!iapToken) {

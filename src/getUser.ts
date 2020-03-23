@@ -3,18 +3,26 @@ import { User, userCache } from "./userCache";
 
 export async function getUser(
   serviceUA: string,
+  servicePermissionsIdentifier: string,
   email: string,
   iamURL: string,
   iamToken: string,
   fetcher: Function = fetch,
 ): Promise<User> {
-  const cachedUser = userCache.get(email);
+
+  if (!servicePermissionsIdentifier) {
+    servicePermissionsIdentifier = serviceUA.split("/")[0]; // Kiwi RFC 22
+  }
+
+  servicePermissionsIdentifier = servicePermissionsIdentifier.toLowerCase();
+
+  const cachedUser = userCache.get(`${email}-${servicePermissionsIdentifier}`);
   if (cachedUser) {
     return cachedUser;
   }
 
   const cleanURL = iamURL.replace(/\/$/, "");
-  const url = `${cleanURL}/v1/user?permissions=true&email=${email}`;
+  const url = `${cleanURL}/v1/user?service=${servicePermissionsIdentifier}&email=${email}`;
   const response = await fetcher(url, {
     headers: {
       Authorization: iamToken,
@@ -23,6 +31,6 @@ export async function getUser(
   });
   const user = await response.json();
 
-  userCache.set(user, 10 * 60);
+  userCache.set(user, servicePermissionsIdentifier,  10 * 60);
   return user;
 }
