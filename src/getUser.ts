@@ -16,7 +16,7 @@ export async function getUser(
 
   servicePermissionsIdentifier = servicePermissionsIdentifier.toLowerCase();
 
-  const cachedUser = userCache.get(`${email}-${servicePermissionsIdentifier}`);
+  const cachedUser = userCache.get(`${email}:${servicePermissionsIdentifier}`);
   if (cachedUser) {
     return cachedUser;
   }

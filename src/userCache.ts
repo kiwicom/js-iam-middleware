@@ -25,7 +25,7 @@ class UserCache {
   cache: Cache = {};
 
   set(user: User, service: string, lifespan: number): void {
-    this.cache[`${user.email}-${service}`] = {
+    this.cache[`${user.email}:${service}`] = {
       expiration: Date.now() + lifespan * 1000,
       user,
     };
