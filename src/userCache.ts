@@ -15,7 +15,7 @@ export interface User {
 }
 
 interface Cache {
-  [email: string]: {
+  [identifier: string]: {
     expiration: number;
     user: User;
   };
@@ -24,29 +24,29 @@ interface Cache {
 class UserCache {
   cache: Cache = {};
 
-  set(user: User, lifespan: number): void {
-    this.cache[user.email] = {
+  set(user: User, service: string, lifespan: number): void {
+    this.cache[`${user.email}:${service}`] = {
       expiration: Date.now() + lifespan * 1000,
       user,
     };
   }
 
-  get(email: string): User | null {
-    const entry = this.cache[email];
+  get(identifier: string): User | null {
+    const entry = this.cache[identifier];
     if (!entry) {
       return null;
     }
 
     if (entry.expiration <= Date.now()) {
-      this.del(email);
+      this.del(identifier);
       return null;
     }
 
     return entry.user;
   }
 
-  del(email: string): void {
-    delete this.cache[email];
+  del(identifier: string): void {
+    delete this.cache[identifier];
   }
 }
 

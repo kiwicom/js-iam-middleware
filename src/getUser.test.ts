@@ -25,7 +25,8 @@ test("getUser caches results", async (t) => {
   };
 
   const user = await getUser(
-    "Test/1.0 (Kiwi.com test)",
+    "UA/1.0 (Kiwi.com test)",
+    "Test",
     "test@test.com",
     "http://example.com",
     "test_token",
@@ -36,12 +37,14 @@ test("getUser caches results", async (t) => {
   t.is(nRequests, 1);
 
   const user2 = await getUser(
-    "Test/1.0 (Kiwi.com test)",
+    "UA/1.0 (Kiwi.com test)",
+    "Test",
     "test@test.com",
     "http://example.com",
     "test_token",
     mockFetch(testUser),
   );
+
   t.deepEqual(user2, testUser);
   // The user from the previous request should be cached, so there shouldn't be
   // an extra request.
