@@ -14,6 +14,8 @@ export async function getRefreshToken(
   const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${
     options.clientId
   }&response_type=code&scope=openid%20email&access_type=offline&redirect_uri=urn:ietf:wg:oauth:2.0:oob`;
+  
+  console.log('Open this URL if your browser didn\'t open automatically\n', url);
 
   openBrowser(browser, url);
 
