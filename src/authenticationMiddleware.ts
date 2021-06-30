@@ -25,7 +25,7 @@ export function validateAudience(audience: string | undefined): void {
 
 export const authenticationMiddleware = (opts: Options) => async (
   req: Request,
-  res: Response,
+  _: Response,
   next: NextFunction,
 ) => {
   // Handle deprecated options
@@ -51,6 +51,7 @@ export const authenticationMiddleware = (opts: Options) => async (
     next();
   } catch (err) {
     console.log("IAP validation failed", err);
-    res.status(403).json({ message: "IAP validation failed", err });
+    err.status = 403;
+    next(err);
   }
 };
