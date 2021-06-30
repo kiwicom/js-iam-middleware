@@ -29,7 +29,7 @@
     "graphql-tools": "^4.0.5",
     "jsonwebtoken": "^8.5.1",
     "mamushi": "^2.0.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "open": "^7.0.0"
   },
   "devDependencies": {
