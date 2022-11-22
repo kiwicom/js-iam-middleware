@@ -140,6 +140,13 @@ CLIENT_ID - OAuth Client ID for authenticating from a desktop app
 CLIENT_SECRET - OAuth Client secret for authenticating from a desktop app
 ```
 
+**These are optional environment variables:**
+
+```
+GOOGLE_REDIRECT_URI - local server uri, which uses google OAuth for redirecting (default 'http://localhost:3000')
+OAUTH_SERVER_PORT - your local server port (default '3000')
+```
+
 `package.json`
 
 ```json
@@ -150,7 +157,7 @@ CLIENT_SECRET - OAuth Client secret for authenticating from a desktop app
 }
 ```
 
-Now run `generate:token` a browser will open displaying an authorization code (starting with `4/`) and the CLI will ask you to input the authorization code. After that you will be provided with a `refresh_token` (starting with `1/`) that has long validity and can be used for local development.
+Now run `generate:token`. This script will start local server (on default port 3000) and the server will automatically open your browser with Google's OAuth web page for your application. After clicking on the button, Google will redirect you back to your GOOGLE_REDIRECT_URI (which defaults to http://localhost:3000) and you will be provided with a `refresh_token` (starting with `1/`) that has long validity and can be used for local development.
 
 # Contributing
 
