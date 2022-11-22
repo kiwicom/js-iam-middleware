@@ -1,43 +1,54 @@
 import fetch from "node-fetch";
 import { DesktopIAPOptions, Fetcher } from "../types";
+import url from "url";
 
 export function openBrowser(browser: (url: string) => void, url: string): void {
   browser(url);
 }
+export const isASCII = (value: string): boolean => /^[\x00-\x7F]+$/.test(value);
 
 export async function getRefreshToken(
-  browser: (url: string) => void,
-  inputHandler: (question: string) => Promise<string>,
+  redirectUrl: string,
   fetcher: Fetcher = fetch,
   options: DesktopIAPOptions,
+  redirectUri: string,
 ): Promise<string> {
-  const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${options.clientId}&response_type=code&scope=openid%20email&access_type=offline&redirect_uri=urn:ietf:wg:oauth:2.0:oob`;
+  const { code, error } = url.parse(redirectUrl, true).query;
+  if (error) {
+    // An error response e.g. error=access_denied
+    console.log("Error:" + error);
+    return "";
+  } else {
+    if (!code || code === "") {
+      console.log("Authorization code is empty");
+      return "";
+    }
+    if (Array.isArray(code)) {
+      console.log("There is more then one authorization code in redirect url.");
+      return "";
+    }
+    if (!isASCII(code)) {
+      console.log("Code contains not allowed characters: " + code);
+      return "";
+    }
 
-  console.log("Open this URL if your browser didn't open automatically\n", url);
+    const oauthTokenBaseUrl = "https://www.googleapis.com/oauth2/v4/token";
 
-  openBrowser(browser, url);
+    const body = {
+      code: code,
+      client_id: options.clientId,
+      client_secret: options.clientSecret,
+      redirect_uri: redirectUri,
+      grant_type: "authorization_code",
+    };
 
-  // await input from user
-  const loginToken = await inputHandler(
-    "Please input the token you received in the browser",
-  );
+    const request = await fetcher(oauthTokenBaseUrl, {
+      body: JSON.stringify(body),
+      method: "POST",
+    });
 
-  const oauthTokenBaseUrl = "https://www.googleapis.com/oauth2/v4/token";
+    const response = await request.json();
 
-  const body = {
-    code: loginToken,
-    client_id: options.clientId,
-    client_secret: options.clientSecret,
-    redirect_uri: "urn:ietf:wg:oauth:2.0:oob",
-    grant_type: "authorization_code",
-  };
-
-  const request = await fetcher(oauthTokenBaseUrl, {
-    body: JSON.stringify(body),
-    method: "POST",
-  });
-
-  const response = await request.json();
-
-  return String(response["refresh_token"]);
+    return String(response["refresh_token"]);
+  }
 }
