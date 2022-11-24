@@ -24,7 +24,7 @@ Refresh token generated. Please save it to your .env file:
 \`\`\`
 IAP_REFRESH_TOKEN=${refreshToken}
 \`\`\`
-`)
+`);
 }
 
 start();

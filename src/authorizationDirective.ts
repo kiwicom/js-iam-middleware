@@ -15,7 +15,13 @@ export async function isUserAuthorized(
   iamToken: string,
   servicePermissionsIdentifier: string = "",
 ): Promise<boolean> {
-  const user = await getUser(serviceUA, servicePermissionsIdentifier, email, iamURL, iamToken);
+  const user = await getUser(
+    serviceUA,
+    servicePermissionsIdentifier,
+    email,
+    iamURL,
+    iamToken,
+  );
   return user.permissions && user.permissions.includes(permission);
 }
 
@@ -85,7 +91,8 @@ export function authorizationDirective(
     );
   }
   AuthorizationDirective.serviceUA = options.serviceUserAgent;
-  AuthorizationDirective.servicePermissionsIdentifier = options.servicePermissionsIdentifier || "";
+  AuthorizationDirective.servicePermissionsIdentifier =
+    options.servicePermissionsIdentifier || "";
   AuthorizationDirective.emailPath = options.emailPath || "iapEmail";
   AuthorizationDirective.iamURL = options.iamURL;
   AuthorizationDirective.iamToken = options.iamToken;

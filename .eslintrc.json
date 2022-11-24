@@ -5,11 +5,7 @@
     "project": "./tsconfig.json"
   },
   "plugins": ["@typescript-eslint"],
-  "extends": [
-    "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "prettier/@typescript-eslint"
-  ],
+  "extends": ["plugin:@typescript-eslint/recommended"],
   "rules": {
     "@typescript-eslint/array-type": ["error", "array-simple"],
     "@typescript-eslint/explicit-member-accessibility": ["off"],
@@ -27,6 +23,7 @@
         "allowExpressions": true,
         "allowHigherOrderFunctions": true
       }
-    ]
+    ],
+    "@typescript-eslint/indent": ["off"]
   }
 }
