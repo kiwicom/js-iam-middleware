@@ -9,7 +9,6 @@ export async function getUser(
   iamToken: string,
   fetcher: Function = fetch,
 ): Promise<User> {
-
   if (!servicePermissionsIdentifier) {
     servicePermissionsIdentifier = serviceUA.split("/")[0]; // Kiwi RFC 22
   }
@@ -31,6 +30,6 @@ export async function getUser(
   });
   const user = await response.json();
 
-  userCache.set(user, servicePermissionsIdentifier,  10 * 60);
+  userCache.set(user, servicePermissionsIdentifier, 10 * 60);
   return user;
 }

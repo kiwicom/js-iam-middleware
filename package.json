@@ -17,7 +17,9 @@
   "scripts": {
     "test": "nyc ava",
     "lint": "eslint . --ext ts",
-    "ci": "npm run test && npm run lint && tsc --noEmit",
+    "prettier:check": "prettier . --check",
+    "fmt": "prettier . --write",
+    "ci": "npm run test && npm run lint && npm run prettier:check && tsc --noEmit",
     "build": "rm -rf dist && tsc --declaration",
     "prepare": "npm run build",
     "release": "semantic-release"
@@ -43,8 +45,8 @@
     "@typescript-eslint/parser": "1.13.0",
     "ava": "2.4.0",
     "eslint": "6.8.0",
-    "eslint-config-prettier": "6.10.1",
     "nyc": "15.0.0",
+    "prettier": "^2.8.0",
     "semantic-release": "17.0.4",
     "ts-node": "8.6.2",
     "typescript": "3.7.5"
