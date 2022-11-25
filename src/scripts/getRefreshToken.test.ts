@@ -46,7 +46,6 @@ test("getRefreshToken", async (t) => {
   }
 
   const response = {
-    // eslint-disable-next-line @typescript-eslint/camelcase
     refresh_token: "some_refresh_token",
   };
 

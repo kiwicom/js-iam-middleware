@@ -52,7 +52,8 @@ export const authenticationMiddleware =
 
       await validateIAPToken(iapToken, expectedAudience);
       next();
-    } catch (err) {
+    } catch (err: any) {
+      // TODO: improve typing for err
       console.log("IAP validation failed", err);
       err.status = 403;
       next(err);

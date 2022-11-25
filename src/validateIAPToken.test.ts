@@ -97,6 +97,6 @@ test("validate ", async (t) => {
     const err = await t.throwsAsync(() =>
       validateIAPToken(testJWT, "expected_audience", mockFetch(mockPubKeys)),
     );
-    t.assert(err.message.includes(message), `[${err}] contains [${message}]`);
+    t.assert(err?.message.includes(message), `[${err}] contains [${message}]`);
   });
 });

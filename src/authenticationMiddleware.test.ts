@@ -37,7 +37,7 @@ test("validateAudience throws on invalid values", (t) => {
   tests.forEach((audience) => {
     const err = t.throws(() => validateAudience(audience));
     t.is(
-      err.message,
+      err?.message,
       `'audience' needs to be a string matching ${audienceRegex}`,
     );
   });
@@ -45,10 +45,10 @@ test("validateAudience throws on invalid values", (t) => {
 
 test("required throws on null or undefined", (t) => {
   const err = t.throws(() => required(undefined, "notExisting"));
-  t.is(err.message, "Missing 'notExisting', option must be specified.");
+  t.is(err?.message, "Missing 'notExisting', option must be specified.");
 
   const err2 = t.throws(() => required(null, "notExisting"));
-  t.is(err2.message, "Missing 'notExisting', option must be specified.");
+  t.is(err2?.message, "Missing 'notExisting', option must be specified.");
 });
 
 test("authenticationMiddleware throws on getting IAP token if initialised with audience", async (t) => {
@@ -57,7 +57,7 @@ test("authenticationMiddleware throws on getting IAP token if initialised with a
     "/projects/000000000000/apps/my-sample-project-191923",
   ];
 
-  for (let audience of tests) {
+  for (const audience of tests) {
     const opts = {
       audience: audience,
     };

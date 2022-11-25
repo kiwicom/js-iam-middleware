@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { DesktopIAPOptions } from "../types";
+import { DesktopIAPOptions, Fetcher } from "../types";
 
 export function openBrowser(browser: (url: string) => void, url: string): void {
   browser(url);
@@ -8,7 +8,7 @@ export function openBrowser(browser: (url: string) => void, url: string): void {
 export async function getRefreshToken(
   browser: (url: string) => void,
   inputHandler: (question: string) => Promise<string>,
-  fetcher: Function = fetch,
+  fetcher: Fetcher = fetch,
   options: DesktopIAPOptions,
 ): Promise<string> {
   const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${options.clientId}&response_type=code&scope=openid%20email&access_type=offline&redirect_uri=urn:ietf:wg:oauth:2.0:oob`;
@@ -26,13 +26,9 @@ export async function getRefreshToken(
 
   const body = {
     code: loginToken,
-    // eslint-disable-next-line @typescript-eslint/camelcase
     client_id: options.clientId,
-    // eslint-disable-next-line @typescript-eslint/camelcase
     client_secret: options.clientSecret,
-    // eslint-disable-next-line @typescript-eslint/camelcase
     redirect_uri: "urn:ietf:wg:oauth:2.0:oob",
-    // eslint-disable-next-line @typescript-eslint/camelcase
     grant_type: "authorization_code",
   };
 

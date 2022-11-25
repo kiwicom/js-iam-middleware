@@ -1,7 +1,7 @@
 import test from "ava";
-import { Response } from "node-fetch";
 import { getClientToken } from "./getClientToken";
 import { DesktopIAPOptions } from "./types";
+import { Response } from "node-fetch";
 
 test("getClientToken", async (t) => {
   let nFetchCalls = 0;
@@ -10,7 +10,6 @@ test("getClientToken", async (t) => {
     nFetchCalls += 1;
     return new Response(
       JSON.stringify({
-        // eslint-disable-next-line @typescript-eslint/camelcase
         id_token: "test",
       }),
     );
@@ -25,6 +24,10 @@ test("getClientToken", async (t) => {
   const clientToken = await getClientToken(
     mockIAPOptions,
     "testrefreshtoken",
+    // This should be client side, so the types don't exactly match between node-fetch's Response
+    // and Response. However, it's easier to do it this way to run the tests for now.
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     mockFetch,
   );
 

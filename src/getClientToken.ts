@@ -1,22 +1,17 @@
-import { DesktopIAPOptions } from "./types";
+import { DesktopIAPOptions, ClientFetcher } from "./types";
 
-const oauthTokenBaseUrl = "https://www.googleapis.com/oauth2/v4/token";
+const oauthTokenBaseUrl = new URL("https://www.googleapis.com/oauth2/v4/token");
 
 export async function getClientToken(
   options: DesktopIAPOptions,
   refreshToken: string,
-  fetcher: Function = fetch,
+  fetcher: ClientFetcher = fetch,
 ): Promise<string> {
   const body = {
-    // eslint-disable-next-line @typescript-eslint/camelcase
     client_id: options.clientId,
-    // eslint-disable-next-line @typescript-eslint/camelcase
     client_secret: options.clientSecret,
-    // eslint-disable-next-line @typescript-eslint/camelcase
     refresh_token: refreshToken,
-    // eslint-disable-next-line @typescript-eslint/camelcase
     grant_type: "refresh_token",
-    // eslint-disable-next-line @typescript-eslint/camelcase
     audience: options.iapClientId,
   };
 
