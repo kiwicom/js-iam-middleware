@@ -28,6 +28,6 @@ export const mockToken = (
     keyPair.private,
     {
       algorithm: "ES256",
-      header: { kid },
+      header: { kid: kid ?? undefined, alg: "ES256" },
     },
   );

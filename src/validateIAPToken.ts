@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import fetch from "node-fetch";
+import { Fetcher } from "./types";
 
 const IAP_PUBKEY_URL = "https://www.gstatic.com/iap/verify/public_key";
 const IAP_ISS = "https://cloud.google.com/iap";
@@ -8,7 +9,7 @@ export let cachedKeys: { [key: string]: string } = {};
 
 export async function getPubKey(
   keyID: string,
-  fetcher: Function = fetch,
+  fetcher: Fetcher = fetch,
 ): Promise<string> {
   let key = cachedKeys[keyID];
 
@@ -28,14 +29,14 @@ export async function getPubKey(
 export async function validateIAPToken(
   iapToken: string,
   expectedAudience: string,
-  fetcher: Function = fetch,
+  fetcher: Fetcher = fetch,
 ): Promise<string | { [key: string]: any }> {
   const decoded = jwt.decode(iapToken, { complete: true });
 
   if (
     !decoded ||
-    typeof decoded === "string" ||
     !decoded.payload ||
+    typeof decoded.payload === "string" ||
     !decoded.header
   ) {
     throw Error(`Failed to decode IAP JWT [${iapToken}]`);

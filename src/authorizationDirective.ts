@@ -13,7 +13,7 @@ export async function isUserAuthorized(
   permission: string,
   iamURL: string,
   iamToken: string,
-  servicePermissionsIdentifier: string = "",
+  servicePermissionsIdentifier = "",
 ): Promise<boolean> {
   const user = await getUser(
     serviceUA,
@@ -102,6 +102,7 @@ export function authorizationDirective(
   // function needs to return the SchemaDirectiveVisitor type, so that the
   // clients using this library won't have to also use ts-ignore when adding
   // the directive to their schemas.
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return AuthorizationDirective;
 }
