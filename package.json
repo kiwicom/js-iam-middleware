@@ -31,7 +31,7 @@
     "graphql-tools": "^7.0.5",
     "jsonwebtoken": "^8.5.1",
     "mamushi": "^2.0.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.0.0",
     "open": "^8.4.0",
     "url": "^0.11.0"
   },
