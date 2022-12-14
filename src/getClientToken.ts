@@ -1,11 +1,11 @@
-import { DesktopIAPOptions, ClientFetcher } from "./types";
+import { DesktopIAPOptions, ClientFetcher, Fetcher } from "./types";
 
 const oauthTokenBaseUrl = new URL("https://www.googleapis.com/oauth2/v4/token");
 
 export async function getClientToken(
   options: DesktopIAPOptions,
   refreshToken: string,
-  fetcher: ClientFetcher = fetch,
+  fetcher: ClientFetcher | Fetcher = fetch,
 ): Promise<string> {
   const body = {
     client_id: options.clientId,
