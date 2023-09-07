@@ -27,17 +27,17 @@ export async function getPubKey(
 }
 
 export async function validateIAPToken(
-  iapToken: string,
-  expectedAudience: string,
-  fetcher: Fetcher = fetch,
+    iapToken: string,
+    expectedAudiences: string | string[],
+    fetcher: Fetcher = fetch,
 ): Promise<string | { [key: string]: any }> {
   const decoded = jwt.decode(iapToken, { complete: true });
 
   if (
-    !decoded ||
-    !decoded.payload ||
-    typeof decoded.payload === "string" ||
-    !decoded.header
+      !decoded ||
+      !decoded.payload ||
+      typeof decoded.payload === "string" ||
+      !decoded.header
   ) {
     throw Error(`Failed to decode IAP JWT [${iapToken}]`);
   }
@@ -46,19 +46,26 @@ export async function validateIAPToken(
     throw Error(`Invalid IAP issuer [${decoded.payload.iss}]`);
   }
 
-  // From: https://cloud.google.com/iap/docs/signed-headers-howto
-  // `aud` Must be a string with the following values:
-  //  App Engine: /projects/PROJECT_NUMBER/apps/PROJECT_ID
-  //  Compute Engine and GKE: /projects/PROJECT_NUMBER/global/backendServices/SERVICE_ID
-  if (decoded.payload.aud !== expectedAudience) {
-    throw Error(`Invalid audience [${decoded.payload.aud}]`);
+  const expectedAudienceArray = Array.isArray(expectedAudiences)
+      ? expectedAudiences
+      : [expectedAudiences];
+  const aud = decoded.payload.aud;
+
+  if (
+      (typeof aud === "string" && !expectedAudienceArray.includes(aud)) ||
+      (Array.isArray(aud) && !aud.some(a => expectedAudienceArray.includes(a))) ||
+      aud === undefined
+  ) {
+    throw Error(`Invalid audience [${aud}]`);
   }
+
 
   const keyID = decoded.header.kid;
 
   if (!keyID) {
     throw Error('Missing "kid" attribute from IAP JWT');
   }
+
 
   try {
     const pubKey = await getPubKey(keyID, fetcher);
