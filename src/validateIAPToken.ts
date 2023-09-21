@@ -55,12 +55,10 @@ export async function validateIAPToken(
   // `aud` Must be a string with the following values:
   //  App Engine: /projects/PROJECT_NUMBER/apps/PROJECT_ID
   //  Compute Engine and GKE: /projects/PROJECT_NUMBER/global/backendServices/SERVICE_ID
-  if (
-    (typeof aud === "string" && !expectedAudienceArray.includes(aud)) ||
-    (Array.isArray(aud) &&
-      !aud.some((a) => expectedAudienceArray.includes(a))) ||
-    aud === undefined
-  ) {
+  if (typeof aud !== "string") {
+    throw Error(`Invalid audience: expected a string, received [${aud}]`);
+  }
+  if (!expectedAudienceArray.includes(aud)) {
     throw Error(`Invalid audience [${aud}]`);
   }
 
