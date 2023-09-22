@@ -52,6 +52,35 @@ test("validate ", async (t) => {
   });
 });
 
+test("validate multiple audiences ", async (t) => {
+  const tokens = [
+    {
+      iss: "https://cloud.google.com/iap",
+      aud: "expected_audience",
+      email: "test@test.com",
+    },
+    {
+      iss: "https://cloud.google.com/iap",
+      aud: "expected_audience2",
+      email: "test@test.com",
+    },
+  ];
+  for (const token of tokens) {
+    const testJWT = mockToken(token);
+    const payload = await validateIAPToken(
+      testJWT,
+      ["expected_audience", "expected_audience2"],
+      mockFetch(mockPubKeys),
+    );
+    t.deepEqual(payload, {
+      iat: new Date("10 Oct 2019").getTime(),
+      iss: token.iss,
+      aud: token.aud,
+      email: token.email,
+    });
+  }
+});
+
 [
   ["invalid JWT", "invalid JWT"],
   [
