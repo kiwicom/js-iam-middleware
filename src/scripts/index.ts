@@ -6,6 +6,7 @@ import fetch from "node-fetch";
 import { getRefreshToken } from "./getRefreshToken";
 import http from "http";
 import url from "url";
+import { isOAuthCallbackUrl } from "./oauthCallback";
 
 async function start(): Promise<void> {
   const options = {
@@ -33,10 +34,11 @@ async function start(): Promise<void> {
   http
     .createServer(async function (req, res) {
       // Receive the callback from Google's OAuth 2.0 server.
-      if (req?.url?.startsWith("/?code")) {
+      const requestUrl = req?.url ?? "";
+      if (isOAuthCallbackUrl(requestUrl)) {
         // Handle the OAuth 2.0 server response
         const refreshToken = await getRefreshToken(
-          req.url,
+          requestUrl,
           fetch,
           options,
           redirectUri,
