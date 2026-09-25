@@ -55,11 +55,11 @@ export class AuthorizationDirective extends SchemaDirectiveVisitor {
       if (
         !(await isUserAuthorized(
           AuthorizationDirective.serviceUA,
-          AuthorizationDirective.servicePermissionsIdentifier,
           email,
           this.args.permission,
           AuthorizationDirective.iamURL,
           AuthorizationDirective.iamToken,
+          AuthorizationDirective.servicePermissionsIdentifier,
         ))
       ) {
         throw Error(`Token unauthorized for ${this.args.permission}`);
